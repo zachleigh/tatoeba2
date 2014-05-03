@@ -147,7 +147,12 @@ $menuElements = array(
 <div id="top_menu_container">
     <div id="top_menu">
         <div id="languageSelectionContainer">
-        <?php echo $this->element('interface_language'); ?>
+        <?php echo $this->element('interface_language', array(
+            'cache' => array(
+                'time' => '+1 day',
+                'key'=> Configure::read('Config.language'),
+            )
+        )); ?>
         </div>
         
         <div id="user_menu">
