@@ -25,7 +25,6 @@
  * @link     http://tatoeba.org
  */
 
-$onlineVisitors = ClassRegistry::init('Visitor')->numberOfOnlineVisitors();
 if (isset($this->params['lang'])) {
     Configure::write('Config.language', $this->params['lang']);
 }
@@ -33,7 +32,12 @@ if (isset($this->params['lang'])) {
 <div id="footer">
 <ul>
     <li>
-        <?php echo __('Online visitor(s): ') . $onlineVisitors; ?>
+        <cake:nocache>
+        <?php
+          $onlineVisitors = ClassRegistry::init('Visitor')->numberOfOnlineVisitors();
+          echo __('Online visitor(s): ') . $onlineVisitors;
+        ?>
+        </cake:nocache>
     </li>
     <li>
         <?php

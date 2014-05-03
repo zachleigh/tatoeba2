@@ -89,6 +89,7 @@
 		<div id="container">
 
 			<!--  SEARCH BAR  -->
+                        <cake:nocache>
 			<?php
                         echo $this->element('search_bar', array(
                             'selectedLanguageFrom' => $session->read('search_from'),
@@ -103,6 +104,7 @@
                                 'key' => Configure::read('Config.language')
                             )
                         )); ?>
+                        </cake:nocache>
 
 
 			<!--  CONTENT -->

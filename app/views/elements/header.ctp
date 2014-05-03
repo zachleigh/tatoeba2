@@ -25,6 +25,9 @@
  * @link     http://tatoeba.org
  */
 
+?>
+<cake:nocache>
+<?php
 if ($session->read('Auth.User.id')) {
     $path = array(
         'controller' => 'pages',
@@ -51,3 +54,4 @@ if ($session->read('Auth.User.id')) {
     ?>
 	</a>
 </div>
+</cake:nocache>

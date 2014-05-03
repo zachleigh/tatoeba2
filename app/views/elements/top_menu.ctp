@@ -25,6 +25,9 @@
  * @link     http://tatoeba.org
  */
 
+?>
+<cake:nocache>
+<?php
 // Detecting language for "browse by language"
 $currentLanguage = $session->read('random_lang_selected');
 if (empty($currentLanguage) || $currentLanguage == 'und') {
@@ -260,3 +263,4 @@ $menuElements = array(
         
     </div>
 </div>
+</cake:nocache>
