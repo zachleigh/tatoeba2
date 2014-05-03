@@ -88,7 +88,7 @@ if (isset($this->params['lang'])) {
 
     <?php
     $newMessages = ClassRegistry::init('PrivateMessage')->numberOfUnreadMessages(
-        CurrentUser::get('id')
+        ClassRegistry::init('CurrentUser')->get('id')
     );
     $class = '';
     $imageName = 'no_mail.png';
