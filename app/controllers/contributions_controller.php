@@ -132,8 +132,6 @@ class ContributionsController extends AppController
      */
     public function statistics()
     {
-        $this->helpers[] = 'Cache';
-        $this->cacheAction = '1 day';
         $this->set('stats', $this->Contribution->getUsersStatistics());
     }
     
