@@ -60,6 +60,7 @@ $this->set('title_for_layout', $pages->formatTitle($title));
             $translationLang,
             'none',
             $filterAudioOnly,
+            $lastId
         );
         $pagination->display($paginationUrl);
 

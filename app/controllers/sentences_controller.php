@@ -883,7 +883,8 @@ class SentencesController extends AppController
         $lang,
         $translationLang,
         $notTranslatedInto,
-        $filterAudioOnly = "indifferent"
+        $filterAudioOnly = "indifferent",
+        $lastId = 'none'
     ) {
         // TODO This is a hack. We need to find out how to make
         // a form in contribute.ctp that directly forges a CakePHP-compliant URL
@@ -899,7 +900,7 @@ class SentencesController extends AppController
                 )
             );
         }
-
+debug($lastId);
         $this->helpers[] = 'ShowAll';
 
         $model = 'Sentence';
@@ -917,14 +918,20 @@ class SentencesController extends AppController
             $contain = $this->Sentence->minimalContain();
         }
 
+        $sentences_per_page = CurrentUser::getSetting('sentences_per_page');
+
+        $conditions = ['Sentence.lang' => $lang];
+
+        if ($lastId !== 'none') {
+            $conditions['Sentence.id <'] = $lastId;
+        }
+
         $pagination = array(
             'Sentence' => array(
                 'fields' => $this->Sentence->fields(),
                 'contain' => $contain,
-                'conditions' => array(
-                    'Sentence.lang' => $lang,
-                ),
-                'limit' => CurrentUser::getSetting('sentences_per_page'),
+                'conditions' => $conditions,
+                'limit' => $sentences_per_page,
                 'order' => "Sentence.id desc"
             )
         );
@@ -940,6 +947,8 @@ class SentencesController extends AppController
             $translationLang
         );
 
+        $lastId = $allSentences[$sentences_per_page - 1]['Sentence']['id'];
+
         if ($lang === null) {
             $lang = 'unknown';
         }
@@ -948,6 +957,7 @@ class SentencesController extends AppController
         $this->set('translationLang', $translationLang);
         $this->set('filterAudioOnly', $filterAudioOnly);
         $this->set('results', $allSentences);
+        $this->set('lastId', $lastId);
 
         $this->Cookie->write('browse_sentences_in_lang', $lang, false, "+1 month");
         $this->Cookie->write('show_translations_into_lang', $translationLang, false, "+1 month");
